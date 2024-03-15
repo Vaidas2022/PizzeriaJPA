@@ -7,7 +7,7 @@ import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
-import javau9.pizzeria.PizzaRepository;
+import javau9.pizzeria.repositories.PizzaRepository;
 import javau9.pizzeria.models.Pizza;
 
 @Service

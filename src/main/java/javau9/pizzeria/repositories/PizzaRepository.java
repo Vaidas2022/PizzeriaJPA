@@ -1,4 +1,4 @@
-package javau9.pizzeria;
+package javau9.pizzeria.repositories;
 
 import javau9.pizzeria.models.Pizza;
 
