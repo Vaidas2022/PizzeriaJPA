@@ -1,8 +1,6 @@
 package javau9.pizzeria.services;
 
 import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.Optional;
 
 import org.springframework.stereotype.Service;
@@ -23,8 +21,9 @@ public class PizzaServiceImpl implements PizzaService{
         return pizzaDatabase.save(pizza);
     }
 
-    public Pizza getPizzaById(Long id) {
-        return pizzaDatabase.findById(id).get();
+    public Optional<Pizza> getPizzaById(Long id) {
+    	System.out.println( "-----> " + id );
+        return pizzaDatabase.findById(id);
     }
 
     public Collection<Pizza> getAllPizzas() {
@@ -34,4 +33,9 @@ public class PizzaServiceImpl implements PizzaService{
     public void removePizza(Long id) {
         pizzaDatabase.deleteById(id);
     }
+
+	@Override
+	public Optional<Pizza> updatePizza(Long id, Pizza pizza) {
+		return Optional.of(  pizzaDatabase.save(pizza) );
+	}
 }
