@@ -3,44 +3,35 @@ package javau9.pizzeria.services;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Optional;
 
 import org.springframework.stereotype.Service;
 
+import javau9.pizzeria.PizzaRepository;
 import javau9.pizzeria.models.Pizza;
 
 @Service
 public class PizzaServiceImpl implements PizzaService{
 
-    private final Map<Long, Pizza> pizzaDatabase = new HashMap<>();
+    PizzaRepository pizzaDatabase;
     
-    
-    public PizzaServiceImpl() {
-    	addPizza(new Pizza(1L, "Margarita", 	"20 cm", 7.99d));
-    	addPizza(new Pizza(2L, "Pepperoni", 	"25 cm", 8.99d));
-    	addPizza(new Pizza(3L, "Hawaiian", 		"30 cm", 9.49d));
-    	addPizza(new Pizza(4L, "BBQ Chicken", 	"20 cm", 10.99d));
-    	addPizza(new Pizza(5L, "Veggie", 		"25 cm", 8.49d));
-    	addPizza(new Pizza(6L, "Meat Feast", 	"30 cm", 11.99d));
-    	addPizza(new Pizza(7L, "Buffalo", 		"20 cm", 9.99d));
-    	addPizza(new Pizza(8L, "Seafood", 		"25 cm", 12.99d));
-    	addPizza(new Pizza(9L, "Four Cheese", 	"30 cm", 8.99d));
-    	addPizza(new Pizza(10L, "Mexican", 		"20 cm", 10.49d));
-    	addPizza(new Pizza(11L, "Greek", 		"25 cm", 9.49d));
+    public PizzaServiceImpl(PizzaRepository pizzaDatabase) {
+    	this.pizzaDatabase = pizzaDatabase;
     }
-
-    public void addPizza(Pizza pizza) {
-        pizzaDatabase.put(pizza.getId(), pizza);
+       
+    public Pizza addPizza(Pizza pizza) {
+        return pizzaDatabase.save(pizza);
     }
 
     public Pizza getPizzaById(Long id) {
-        return pizzaDatabase.get(id);
+        return pizzaDatabase.findById(id).get();
     }
 
     public Collection<Pizza> getAllPizzas() {
-        return pizzaDatabase.values();
+        return pizzaDatabase.findAll();
     }
 
     public void removePizza(Long id) {
-        pizzaDatabase.remove(id);
+        pizzaDatabase.deleteById(id);
     }
 }

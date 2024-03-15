@@ -7,7 +7,7 @@ import javau9.pizzeria.models.Pizza;
 
 public interface PizzaService {
 
-    void addPizza(Pizza pizza);
+    Pizza addPizza(Pizza pizza);
 
     Pizza getPizzaById(Long id);
 
