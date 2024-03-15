@@ -16,4 +16,6 @@ public interface PizzaService {
     void removePizza(Long id);
 
 	Optional<Pizza> updatePizza(Long id, Pizza pizza);
+
+	boolean deletePizza(Long id);
 }
