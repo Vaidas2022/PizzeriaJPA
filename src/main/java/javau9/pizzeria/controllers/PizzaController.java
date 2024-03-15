@@ -46,13 +46,11 @@ public class PizzaController {
     	return ResponseEntity.of( pizzaService.updatePizza(id, pizza) );
     }
     
-    @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deletePizza(@PathVariable Long id) {
-        boolean isDeleted = pizzaService.deletePizza(id);
-        if (!isDeleted) {
-            return ResponseEntity.notFound().build();
-        }
-        return ResponseEntity.ok().build();
+    @DeleteMapping("/pizzas/{id}")
+    public ResponseEntity<?> deletePizza(@PathVariable Long id) {
+        return pizzaService.deletePizza(id) ?
+            ResponseEntity.ok().build() : // Grąžinamas 200 OK, jei pica sėkmingai ištrinta
+            ResponseEntity.notFound().build(); // Grąžinamas 404 Not Found, jei pica nerasta
     }
     
 }
