@@ -17,19 +17,23 @@ public class PizzaServiceImpl implements PizzaService {
 		this.pizzaDatabase = pizzaDatabase;
 	}
 
+	@Override
 	public Pizza addPizza(Pizza pizza) {
 		return pizzaDatabase.save(pizza);
 	}
 
+	@Override
 	public Optional<Pizza> getPizzaById(Long id) {
 		System.out.println("-----> " + id);
 		return pizzaDatabase.findById(id);
 	}
 
+	@Override
 	public Collection<Pizza> getAllPizzas() {
 		return pizzaDatabase.findAll();
 	}
 
+	@Override
 	public void removePizza(Long id) {
 		pizzaDatabase.deleteById(id);
 	}
