@@ -1,9 +1,16 @@
 package javau9.pizzeria.models;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
+import jakarta.persistence.JoinColumn;
 
 @Entity
 public class Pizza {
@@ -15,14 +22,35 @@ public class Pizza {
     private String name;
     private String size;
     private double price;
-
+    
+    @ManyToMany(cascade = { CascadeType.PERSIST, CascadeType.MERGE })
+    @JoinTable(
+        name = "pizza_ingredient",
+        joinColumns = @JoinColumn(name = "pizza_id"),
+        inverseJoinColumns = @JoinColumn(name = "ingredient_id")
+    )
+    List<Ingredient> ingredients = new ArrayList<>();
+    
     public Pizza() {}
     
     public Pizza(Long id, String name, String size, double price) {
-        this.id = id;
         this.name = name;
         this.size = size;
         this.price = price;
+    }
+    
+    public Pizza(String name) {
+        this.name = name;
+    }
+    
+    public Pizza addIngredient(Ingredient ingridient) {
+    	ingridient.addPizza(this);
+    	ingredients.add(ingridient);
+    	return this;
+    }
+    
+    public List<Ingredient> getIngredients(){
+    	return ingredients;
     }
 
     // Getteriai ir Setteriai
